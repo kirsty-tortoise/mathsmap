@@ -1,14 +1,11 @@
 class Flashcard(object):
-    def __init__(self, flashcard_dict):
-        if "title" in flashcard_dict:
-            self.title = flashcard_dict["title"]
-        else:
-            self.title = "Untitled"
-
-        if "text" in flashcard_dict:
-            self.text = flashcard_dict["text"]
-        else:
-            self.text = ""
+    def __init__(self, title="Untitled", text="", **kwargs):
+        """
+        Create a Flashcard with a title and text.
+        Should only be used by MathsMap and similar.
+        """
+        self.title = title
+        self.text = text
 
 class MathsMap(object):
     def __init__(self, flashcards_dict):
