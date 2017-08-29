@@ -1,6 +1,6 @@
 import unittest
 from uuid import uuid4, UUID
-from flashcards import MathsMap, Flashcard
+from mathsmaps.flashcard import Flashcard
 
 class TestFlashcard(unittest.TestCase):
     def test_make_flashcard(self):
@@ -57,22 +57,3 @@ class TestFlashcard(unittest.TestCase):
         new_flashcard = Flashcard(id_=id_)
         self.assertIsInstance(new_flashcard.id, UUID)
         self.assertEqual(new_flashcard.id, id_)
-
-class TestMathsMap(unittest.TestCase):
-    def test_make_flashcard_list(self):
-        pass
-
-    def test_make_links(self):
-        pass
-    
-    def test_add_card(self):
-        pass
-    
-    def test_remove_card(self):
-        pass
-    
-    def test_count_cards(self):
-        pass
-
-if __name__ == "__main__":
-    unittest.main()
