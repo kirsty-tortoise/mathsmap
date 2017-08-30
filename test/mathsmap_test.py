@@ -1,5 +1,6 @@
 import unittest
 from uuid import uuid4, UUID
+from pickle import dumps, loads
 from mathsmaps.mathsmap import MathsMap
 
 class TestMathsMap(unittest.TestCase):
@@ -123,6 +124,35 @@ class TestMathsMap(unittest.TestCase):
         self.assertIn(card1, new_map.flashcards.values())
         self.assertIn(card2, new_map.flashcards.values())
         self.assertEqual(len(new_map.flashcards), 2)
+    
+    def test_save_and_pickle_empty_map(self):
+        original_map = MathsMap(name="Empty map")
+        saved = dumps(original_map.make_save_dict())
+        new_map = MathsMap(**loads(saved))
+        self.assertEqual(new_map.name, original_map.name)
+        self.assertEqual(len(new_map.flashcards), 0)
+    
+    def test_save_and_pickle_map_without_links(self):
+        original_map = MathsMap(name="Big Map")
+        for i in range(20):
+            original_map.add_card(title=str(i), text="This is a great card " + str(i))
+        new_map = MathsMap(**loads(dumps(original_map.make_save_dict())))
+        self.assertEqual(original_map.name, new_map.name)
+        self.assertEqual(len(original_map.flashcards), len(new_map.flashcards))
+        for id_,original_card in original_map.flashcards.items():
+            new_card = new_map.flashcards[id_]
+            for key in ["title", "text", "id"]:
+                self.assertEqual(getattr(new_card, key), getattr(original_card, key))
+    
+    def test_save_and_pickle_links(self):
+        original_map = MathsMap(name="Two cards")
+        card1 = original_map.add_card(title="CARD1")
+        card2 = original_map.add_card(title="CARD2")
+        original_map.add_link(card1, card2)
+        new_map = MathsMap(**loads(dumps(original_map.make_save_dict())))
+        new_card1, new_card2 = new_map.flashcards[card1.id], new_map.flashcards[card2.id]
+        self.assertTrue(is_linked(new_card1, new_card2))
+        self.assertTrue(is_not_linked(new_card2, new_card1))
 
 def is_linked(lower, upper):
     return (lower in upper.lower_links 

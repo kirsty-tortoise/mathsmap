@@ -51,4 +51,16 @@ class MathsMap(object):
         """
         Makes a pickleable dictionary to save the MathsMap
         """
-        pass
+        flashcard_dicts = {id_:card.make_save_dict() for id_,card in self.flashcards.items()}
+        return dict(name=self.name,
+                    links=self.get_links(),
+                    flashcard_dicts=flashcard_dicts,
+                    )
+
+    def get_links(self):
+        """
+        Makes a list of links present in the map for setting up again.
+        """
+        return [(card1.id, card2.id) 
+                for card1 in self.flashcards.values() 
+                for card2 in card1.upper_links]
