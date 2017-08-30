@@ -41,15 +41,11 @@ class MathsMap(object):
 
     def add_card(self, flashcard_dict):
         """
-        Add a new card to the map of flashcards.
+        Add a new card to the map of flashcards, returning the card created.
         """
-        pass
-    
-    def remove_card(self, name):
-        """
-        Remove a card from the map of flashcards
-        """
-        pass
+        card = Flashcard(**flashcard_dict)
+        self.flashcards[card.id] = card
+        return card
    
     def make_save_dict(self):
         """
