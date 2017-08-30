@@ -39,7 +39,7 @@ class MathsMap(object):
         lower_flashcard.upper_links.append(upper_flashcard)
         upper_flashcard.lower_links.append(lower_flashcard)
 
-    def add_card(self, flashcard_dict):
+    def add_card(self, **flashcard_dict):
         """
         Add a new card to the map of flashcards, returning the card created.
         """

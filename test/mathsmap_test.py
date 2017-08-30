@@ -92,7 +92,7 @@ class TestMathsMap(unittest.TestCase):
     
     def test_add_card_without_id(self):
         new_map = MathsMap(name="Empty")
-        card = new_map.add_card(dict(title="A new card!", text="This card is new"))
+        card = new_map.add_card(title="A new card!", text="This card is new")
         self.assertIsInstance(card.id, UUID)
         self.assertEqual(card.title, "A new card!")
         self.assertEqual(card.text, "This card is new")
@@ -103,7 +103,7 @@ class TestMathsMap(unittest.TestCase):
     def test_add_card_with_id(self):
         new_map = MathsMap(name="Empty")
         id_ = uuid4()
-        card = new_map.add_card(dict(id_=id_))
+        card = new_map.add_card(id_=id_)
         self.assertEqual(id_, card.id)
         self.assertEqual(new_map.flashcards[id_], card)
     
@@ -111,19 +111,19 @@ class TestMathsMap(unittest.TestCase):
         id1, id2 = uuid4(), uuid4()
         new_map = MathsMap(name="Only one for now", flashcard_dicts={id1:dict(title="The first card")})
         self.assertEqual(len(new_map.flashcards), 1)
-        card = new_map.add_card(dict(id_=id2, title="The second card"))
+        card = new_map.add_card(id_=id2, title="The second card")
         self.assertEqual(len(new_map.flashcards), 2)
         self.assertEqual(card, new_map.flashcards[id2])
     
     def test_add_two_cards(self):
         new_map = MathsMap(name="Two to add")
-        card1 = new_map.add_card(dict(title="The first card"))
-        card2 = new_map.add_card(dict(title="The second card"))
+        card1 = new_map.add_card(title="The first card")
+        card2 = new_map.add_card(title="The second card")
         self.assertNotEqual(card1.id, card2.id)
         self.assertIn(card1, new_map.flashcards.values())
         self.assertIn(card2, new_map.flashcards.values())
         self.assertEqual(len(new_map.flashcards), 2)
-    
+
 def is_linked(lower, upper):
     return (lower in upper.lower_links 
         and upper in lower.upper_links)
