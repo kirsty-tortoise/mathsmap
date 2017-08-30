@@ -1,5 +1,6 @@
 import unittest
 from uuid import uuid4, UUID
+from pickle import dumps, loads
 from mathsmaps.flashcard import Flashcard
 
 class TestFlashcard(unittest.TestCase):
@@ -57,3 +58,31 @@ class TestFlashcard(unittest.TestCase):
         new_flashcard = Flashcard(id_=id_)
         self.assertIsInstance(new_flashcard.id, UUID)
         self.assertEqual(new_flashcard.id, id_)
+
+    def test_save_default_card_to_dict_and_copy_card(self):
+        original_card = Flashcard()
+        saved = original_card.make_save_dict()
+        new_card = Flashcard(**saved)
+        for key in ["title", "text", "id"]:
+            self.assertEqual(getattr(new_card, key), getattr(original_card, key))
+
+    def test_save_new_card_to_dict_and_copy_card(self):
+        original_card = Flashcard(title="This is a title", text="This is the text")
+        saved = original_card.make_save_dict()
+        new_card = Flashcard(**saved)
+        for key in ["title", "text", "id"]:
+            self.assertEqual(getattr(new_card, key), getattr(original_card, key))
+
+    def test_default_save_dictionary_can_be_pickled_and_unpickled(self):
+        original_card = Flashcard()
+        saved = dumps(original_card.make_save_dict())
+        new_card = Flashcard(**loads(saved))
+        for key in ["title", "text", "id"]:
+            self.assertEqual(getattr(new_card, key), getattr(original_card, key))
+
+    def test_new_save_dictionary_can_be_pickled_and_unpickled(self):
+        original_card = Flashcard(id_=uuid4(), title="This is a title", text="This is the text")
+        saved = dumps(original_card.make_save_dict())
+        new_card = Flashcard(**loads(saved))
+        for key in ["title", "text", "id"]:
+            self.assertEqual(getattr(new_card, key), getattr(original_card, key))

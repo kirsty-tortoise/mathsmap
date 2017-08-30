@@ -24,3 +24,9 @@ class Flashcard(object):
 
         self.upper_links = []
         self.lower_links = []
+
+    def make_save_dict(self):
+        return dict(id_=self.id,
+                    title=self.title,
+                    text=self.text,
+                    )
