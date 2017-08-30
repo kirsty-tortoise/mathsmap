@@ -16,7 +16,11 @@ class Flashcard(object):
         """
         self.title = title
         self.text = text
+
         if id_ is None:
             self.id = uuid4()
         else:
             self.id = id_
+
+        self.upper_links = []
+        self.lower_links = []

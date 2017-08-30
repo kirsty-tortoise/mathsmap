@@ -1,3 +1,5 @@
+from mathsmaps.flashcard import Flashcard
+
 class MathsMap(object):
     """
     Map class for maps which will be made up of flashcards.
@@ -9,20 +11,33 @@ class MathsMap(object):
                    flashcards_dict - Dictionary of flashcard dictionaries by id
                    links - List of links between flashcards, in the form (lowerUUID, upperUUID)
         """
-        pass
+        self.name = name
+        self.flashcards = {}
+
+        for id_ in flashcard_dicts:
+            if "id_" in flashcard_dicts[id_]:
+                self.flashcards[id_] = Flashcard(**flashcard_dicts[id_])
+            else:
+                self.flashcards[id_] = Flashcard(id_=id_, **flashcard_dicts[id_])
+        
+        self.make_links(links)
     
     def make_links(self, links):
         """
         Given a list of links in the form (lowerUUID, upperUUID)
         Adds these links to the flashcards in the MathsMap.
         """
-        pass
+        for lower_id, upper_id in links:
+            lower = self.flashcards[lower_id]
+            upper = self.flashcards[upper_id]
+            self.add_link(lower, upper)
     
     def add_link(self, lower_flashcard, upper_flashcard):
         """
         Given a lower and upper flashcard, add a link between them.
         """
-        pass
+        lower_flashcard.upper_links.append(upper_flashcard)
+        upper_flashcard.lower_links.append(lower_flashcard)
 
     def add_card(self, flashcard_dict):
         """
@@ -36,12 +51,6 @@ class MathsMap(object):
         """
         pass
    
-    def count_cards(self):
-        """
-        Counts cards in the map.
-        """
-        pass
-
     def make_save_dict(self):
         """
         Makes a pickleable dictionary to save the MathsMap
