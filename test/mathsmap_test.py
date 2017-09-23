@@ -154,6 +154,14 @@ class TestMathsMap(unittest.TestCase):
         self.assertTrue(is_linked(new_card1, new_card2))
         self.assertTrue(is_not_linked(new_card2, new_card1))
 
+    def test_mathsmaps_do_not_interfere(self):
+        mathsmap1 = MathsMap(name="Map1")
+        mathsmap2 = MathsMap(name="Map2")
+        card = mathsmap1.add_card()
+        self.assertIn(card, mathsmap1.flashcards.values())
+        self.assertNotIn(card, mathsmap2.flashcards.values())
+        self.assertEqual(len(mathsmap2.flashcards), 0)
+
 def is_linked(lower, upper):
     return (lower in upper.lower_links 
         and upper in lower.upper_links)
