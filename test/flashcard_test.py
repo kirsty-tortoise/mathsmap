@@ -1,7 +1,7 @@
 import unittest
 from uuid import uuid4, UUID
 from pickle import dumps, loads
-from mathsmaps.flashcard import Flashcard
+from mathsmap.flashcard import Flashcard
 
 class TestFlashcard(unittest.TestCase):
     def test_make_flashcard(self):

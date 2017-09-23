@@ -1,7 +1,7 @@
 import unittest
 from uuid import uuid4, UUID
 from pickle import dumps, loads
-from mathsmaps.mathsmap import MathsMap
+from mathsmap.mathsmap import MathsMap
 
 class TestMathsMap(unittest.TestCase):
     def test_make_empty_mathsmap(self):

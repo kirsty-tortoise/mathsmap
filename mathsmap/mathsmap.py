@@ -1,4 +1,4 @@
-from mathsmaps.flashcard import Flashcard
+from mathsmap.flashcard import Flashcard
 
 class MathsMap(object):
     """
