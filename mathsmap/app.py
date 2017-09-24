@@ -1,8 +1,27 @@
 import tkinter as tk
 from tkinter import ttk as ttk
+from PIL import ImageTk
+
+class Home():
+    def __init__(self, master):
+        self.master = master
+
+        self.images = []
+        for file_name in ["diary", "plus", "explore"]:
+            new_button = tk.Button(master)
+            image = ImageTk.PhotoImage(file="../assets/"+file_name+".png")
+            self.images.append(image)
+            new_button.config(image=image, compound=tk.RIGHT)
+            new_button.pack(side=tk.LEFT)
+
+    def destroy(self):
+        for child in self.master.winfo_children():
+            child.destroy()
+
 
 class Application():
     def __init__(self, master):
+        self.master = master
         self.menus = tk.Menu(master)
         master.config(menu=self.menus)
 
@@ -47,8 +66,12 @@ class Application():
             self.canvas.yview_scroll(-1, "units")
         else:
             self.canvas.yview_scroll(1, "units")
+    
+    def destroy(self):
+        for child in self.master.winfo_children():
+            child.destroy()
 
 
 root = tk.Tk()
-app = Application(root)
+app = Home(root)
 root.mainloop()
