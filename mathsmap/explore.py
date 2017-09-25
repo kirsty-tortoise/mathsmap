@@ -1,8 +1,21 @@
+"""
+Defines a class to set up and run the explore screen.
+"""
+
 import tkinter as tk
 from tkinter import ttk as ttk
 
-class Application():
+class Explore():
+    """
+    A class that sets up and runs the explore screen.
+    """
     def __init__(self, master):
+        """
+        Sets up the explore screen with:
+         - A menu
+         - A lecture list
+         - An area for flashcards
+        """
         self.master = master
         self.menus = tk.Menu(master)
         master.config(menu=self.menus)
@@ -44,11 +57,17 @@ class Application():
         self.lists["yscrollcommand"] = self.scroll.set
 
     def mouse_wheel(self, event):
+        """
+        Handles mouse_wheel events for the flashcard area.
+        """
         if event.delta > 0:
             self.canvas.yview_scroll(-1, "units")
         else:
             self.canvas.yview_scroll(1, "units")
-    
+
     def destroy(self):
+        """
+        Destroys all widgets in the explore screen.
+        """
         for child in self.master.winfo_children():
             child.destroy()

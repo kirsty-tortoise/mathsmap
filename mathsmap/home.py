@@ -1,9 +1,19 @@
+"""
+Defines a class to set up and run the home screen.
+"""
+
 import tkinter as tk
 from tkinter import ttk as ttk
 from PIL import ImageTk
 
-class Home():
+class Home:
+    """
+    A class that sets up and runs the home screen.
+    """
     def __init__(self, master, controller):
+        """
+        Sets up the home screen with navigation buttons.
+        """
         self.master = master
         self.controller = controller
 
@@ -17,5 +27,8 @@ class Home():
             new_button.pack(side=tk.LEFT)
 
     def destroy(self):
+        """
+        Destroys all widgets in the home screen.
+        """
         for child in self.master.winfo_children():
             child.destroy()

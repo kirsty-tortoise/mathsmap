@@ -1,16 +1,29 @@
-import tkinter as tk
-from tkinter import ttk as ttk
-from mathsmap.home import Home
-from mathsmap.explore import Application
+"""
+Main application file
+Defines a control class then makes a controller that sets up the window.
+"""
 
-class Control():
+import tkinter as tk
+from mathsmap.home import Home
+from mathsmap.explore import Explore
+
+class Control:
+    """
+    A control class which switches between screens.
+    """
     def __init__(self, root):
+        """
+        Sets up the home screen.
+        """
         self.root = root
         self.app = Home(root, self)
 
     def explore(self):
+        """
+        Switches to the explore view (used as callback)
+        """
         self.app.destroy()
-        self.app = Application(root)
+        self.app = Explore(root)
 
 root = tk.Tk()
 controller = Control(root)
