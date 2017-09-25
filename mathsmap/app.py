@@ -2,16 +2,27 @@ import tkinter as tk
 from tkinter import ttk as ttk
 from PIL import ImageTk
 
+class Control():
+    def __init__(self, root):
+        self.root = root
+        self.app = Home(root, self)
+    
+    def explore(self):
+        self.app.destroy()
+        self.app = Application(root)
+
 class Home():
-    def __init__(self, master):
+    def __init__(self, master, controller):
         self.master = master
+        self.controller = controller
 
         self.images = []
-        for file_name in ["diary", "plus", "explore"]:
+        images = [("plus", None), ("explore", self.controller.explore), ("diary", None)]
+        for file_name, callback in images:
             new_button = tk.Button(master)
             image = ImageTk.PhotoImage(file="../assets/"+file_name+".png")
             self.images.append(image)
-            new_button.config(image=image, compound=tk.RIGHT)
+            new_button.config(image=image, compound=tk.RIGHT, command=callback)
             new_button.pack(side=tk.LEFT)
 
     def destroy(self):
@@ -71,7 +82,6 @@ class Application():
         for child in self.master.winfo_children():
             child.destroy()
 
-
 root = tk.Tk()
-app = Home(root)
+controller = Control(root)
 root.mainloop()
