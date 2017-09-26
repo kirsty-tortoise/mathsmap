@@ -23,7 +23,7 @@ class Control:
         Switches to the explore view (used as callback)
         """
         self.app.destroy()
-        self.app = Explore(root)
+        self.app = Explore(root, controller)
 
 root = tk.Tk()
 controller = Control(root)

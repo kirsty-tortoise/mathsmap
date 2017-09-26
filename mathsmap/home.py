@@ -6,7 +6,9 @@ import tkinter as tk
 from tkinter import ttk as ttk
 from PIL import ImageTk
 
-class Home:
+from mathsmap.screen import Screen
+
+class Home(Screen):
     """
     A class that sets up and runs the home screen.
     """
@@ -14,9 +16,7 @@ class Home:
         """
         Sets up the home screen with navigation buttons.
         """
-        self.master = master
-        self.controller = controller
-
+        super().__init__(master, controller)
         self.images = []
         images = [("plus", None), ("explore", self.controller.explore), ("diary", None)]
         for file_name, callback in images:
@@ -25,10 +25,3 @@ class Home:
             self.images.append(image)
             new_button.config(image=image, compound=tk.RIGHT, command=callback)
             new_button.pack(side=tk.LEFT)
-
-    def destroy(self):
-        """
-        Destroys all widgets in the home screen.
-        """
-        for child in self.master.winfo_children():
-            child.destroy()

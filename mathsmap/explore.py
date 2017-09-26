@@ -5,31 +5,20 @@ Defines a class to set up and run the explore screen.
 import tkinter as tk
 from tkinter import ttk as ttk
 
-class Explore():
+from mathsmap.screen import Screen
+
+class Explore(Screen):
     """
     A class that sets up and runs the explore screen.
     """
-    def __init__(self, master):
+    def __init__(self, master, controller):
         """
         Sets up the explore screen with:
          - A menu
          - A lecture list
          - An area for flashcards
         """
-        self.master = master
-        self.menus = tk.Menu(master)
-        master.config(menu=self.menus)
-
-        self.file = tk.Menu(self.menus, tearoff=0)
-        self.menus.add_cascade(label="File", menu=self.file)
-        self.file.add("command", label="New")
-        self.file.add("command", label="Save")
-        self.file.add("command", label="HELP!!!")
-
-        self.edit = tk.Menu(self.menus, tearoff=0)
-        self.menus.add_cascade(label="Edit", menu=self.edit)
-        self.edit.add("command", label="Undo")
-        self.edit.add("command", label="Redo")
+        super().__init__(master, controller)
 
         self.left_frame = tk.Frame(master, background="#000000")
         self.left_frame.pack(side=tk.LEFT, expand=tk.YES, fill=tk.BOTH)
@@ -64,10 +53,3 @@ class Explore():
             self.canvas.yview_scroll(-1, "units")
         else:
             self.canvas.yview_scroll(1, "units")
-
-    def destroy(self):
-        """
-        Destroys all widgets in the explore screen.
-        """
-        for child in self.master.winfo_children():
-            child.destroy()
