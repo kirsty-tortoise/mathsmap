@@ -18,7 +18,7 @@ class Home(Screen):
         """
         super().__init__(master, controller)
         self.images = []
-        images = [("plus", None), ("explore", self.controller.explore), ("diary", None)]
+        images = [("plus", controller.new_map), ("explore", self.controller.explore), ("diary", None)]
         for file_name, callback in images:
             new_button = tk.Button(master)
             image = ImageTk.PhotoImage(file="assets/"+file_name+".png")

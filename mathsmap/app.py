@@ -6,6 +6,7 @@ Defines a control class then makes a controller that sets up the window.
 import tkinter as tk
 from mathsmap.home import Home
 from mathsmap.explore import Explore
+from mathsmap.new_map import NewMap
 
 class Control:
     """
@@ -24,6 +25,13 @@ class Control:
         """
         self.app.destroy()
         self.app = Explore(root, controller)
+    
+    def new_map(self):
+        """
+        Creates a new map (used as callback)
+        """
+        self.wizard = NewMap(self)
+
 
 root = tk.Tk()
 controller = Control(root)
